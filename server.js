@@ -23,12 +23,18 @@ app.get("/", async (req, res) => {
 
 //get /fruits/new
 // server.js
-
+app.get("/fruits",async (req, res) => {
+    const allFruits = await Fruit.find();
+    console.log(allFruits)
+    res.render('fruits/index.ejs', {fruits: allFruits})
+})
 // GET /fruits/new
 app.get("/fruits/new", (req, res) => {
     res.render("fruits/new.ejs");
   });
-  
+  app.get('/fruits/:fruitId',  async (req, res) => {
+    res.send(`This route renders th show page for the fruit id: ${req.params.fruitsId}`)
+  })
 // POST /fruits
 app.post("/fruits", async (req, res) => {
        if(req.body.isReadyToEat === "on") {
